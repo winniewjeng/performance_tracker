@@ -15,16 +15,26 @@ datetime = pendulum.now("America/Los_Angeles")
 
 
 master_summary = {}
-
+count = 0
 for line in range(801, 807):
+    
+    count = count + 1
+    print("loop: {}".format(count))
+
     schedule_base_path = f"data/schedule/{line}_{agency}"
     schedule_meta = get_appropriate_timetable(datetime, schedule_base_path)
-    print(schedule_meta["path"])
+#    print("\nschedule_meta path: \n" + schedule_meta["path"])
+#    for i in schedule_meta:
+#        print(schedule_meta[i])
     vehicles_base_path = f"data/vehicle_tracking/processed/{line}_{agency}"
     vehicles_meta = get_appropriate_timetable(datetime, vehicles_base_path)
-    print(vehicles_meta["path"])
+#    print("\nvehicles_meta path: \n" + vehicles_meta["path"])
+#    for i in vehicles_meta:
+#        print(vehicles_meta[i])
 
-    if not schedule_meta["date"] == vehicles_meta["date"]:
+    # if the schdeule data and vehicle dates don't match, run "query_vehicles.sh" or
+    # process_vehicles.sh to update files before proceeding
+    if schedule_meta["date"] == vehicles_meta["date"]:
         continue
 
     vehicles = pd.read_csv(vehicles_meta["path"], index_col=0, parse_dates=["datetime"])
