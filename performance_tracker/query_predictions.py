@@ -13,10 +13,12 @@ for line in lines:
     time = now.format("HH:mm:ss")
 
     stops_direction_A = pd.read_csv(
-        f"data/line_info/{line}/{line}_directionA_stations.csv", index_col=0
+#        f"data/line_info/{line}/{line}_directionA_stations.csv", index_col=0
+        f"data/line_info/{line}/{line}_0_stations.csv", index_col=0
     )
     stops_direction_B = pd.read_csv(
-        f"data/line_info/{line}/{line}_directionB_stations.csv", index_col=0
+#        f"data/line_info/{line}/{line}_directionB_stations.csv", index_col=0
+        f"data/line_info/{line}/{line}_1_stations.csv", index_col=0
     )
 
     unique_stops = list(stops_direction_A.append(stops_direction_B).stop_id.unique())
